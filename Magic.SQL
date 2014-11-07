@@ -1,0 +1,39 @@
+CREATE TABLE Card_Attributes
+(Card_ID INT NOT NULL PRIMARY KEY, 
+Card_Name VARCHAR(60) NOT NULL, 
+Expansion_Pack VARCHAR(30) NOT NULL, 
+Power INT, 
+Toughness INT,
+Rarity CHAR(1) NOT NULL,
+Card_Text VARCHAR(1000));
+
+CREATE TABLE Card_Type
+(Type_ID INT NOT NULL PRIMARY KEY,
+Card_Type VARCHAR(30) NOT NULL);
+
+CREATE TABLE Mana_Symbol,
+(Mana_Symbol_ID INT NOT NULL PRIMARY KEY,
+Black VARCHAR(20),
+Blue VARCHAR(20),
+Colorless VARCHAR(20),
+Green VARCHAR(20),
+Red VARCHAR(20),
+White VARCHAR(20))  
+
+CREATE TABLE Card_Type_Linking
+(Card_ID INT NOT NULL,
+Type_ID INT NOT NULL,
+CONSTRAINT FK_Card_Attributes FOREIGN KEY (Card_ID)
+REFERENCES Card_Attributes (Card_ID),
+CONSTRAINT FK_Card_Types FOREIGN KEY (Type_ID)
+REFERENCES Card_Type (Type_ID),
+CONSTRAINT PK_Card_Type_Linking PRIMARY KEY (Card_ID, Type_ID))
+
+CREATE TABLE Card_Mana_Linking
+(Card_ID INT NOT NULL,
+Mana_Symbol_ID INT NOT NULL,
+CONSTRAINT FK_Card_Attributes FOREIGN KEY (Card_ID)
+REFERENCES Card_Attributes (Card_ID),
+CONSTRAINT FK_Mana_Symbol_ID FOREIGN KEY (Mana_Symbol)
+REFERENCES Mana_Symbol (Mana_Symbol_ID),
+CONSTRAINT PK_Card_Mana_Linking PRIMARY KEY (CARD_ID, Mana_Symbol))
